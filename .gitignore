@@ -3,6 +3,10 @@
 # dependencies
 node_modules/
 
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+
 # Expo
 .expo/
 dist/
