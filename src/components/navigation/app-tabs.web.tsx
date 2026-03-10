@@ -1,10 +1,10 @@
 import {
-    TabList,
-    TabListProps,
-    Tabs,
-    TabSlot,
-    TabTrigger,
-    TabTriggerSlotProps,
+  TabList,
+  TabListProps,
+  Tabs,
+  TabSlot,
+  TabTrigger,
+  TabTriggerSlotProps,
 } from 'expo-router/ui';
 import React from 'react';
 import { Pressable, View } from 'react-native';
@@ -48,17 +48,33 @@ export function TabButton({ children, isFocused, ...props }: TabTriggerSlotProps
 }
 
 export function CustomTabList({ children, ...props }: TabListProps) {
+  const [isExpanded, setIsExpanded] = React.useState(true);
   const tabs = React.Children.toArray(children);
   const [homeTab, ...rightTabs] = tabs;
 
   return (
-    <View className={tabStyles.tabListContainer}>
-      <View {...props} className={tabStyles.innerContainer}>
-        {homeTab}
+    <View className={tabStyles.dropdownContainer}>
+      <View className={tabStyles.tabListContainer} style={{ display: isExpanded ? 'flex' : 'none' }}>
+        <View {...props} className={tabStyles.innerContainer}>
+          {homeTab}
 
-        <View className={tabStyles.tabsRight}>
-          {rightTabs}
+          <View className={tabStyles.tabsRight}>
+            <View className={tabStyles.tabsGroup}>{rightTabs}</View>
+          </View>
         </View>
+      </View>
+
+      <View className={tabStyles.handleWrap}>
+        <Pressable
+          accessibilityLabel={isExpanded ? 'Collapse navigation' : 'Expand navigation'}
+          accessibilityRole="button"
+          accessibilityState={{ expanded: isExpanded }}
+          onPress={() => setIsExpanded((value) => !value)}
+          style={({ pressed }) => pressed && { opacity: 0.7 }}>
+          <View className={tabStyles.handleButton}>
+            <ThemedText type="small">{isExpanded ? '▲' : '▼'}</ThemedText>
+          </View>
+        </Pressable>
       </View>
     </View>
   );

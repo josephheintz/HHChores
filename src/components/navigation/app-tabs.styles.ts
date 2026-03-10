@@ -4,18 +4,17 @@
 //                backgroundSelected #E0E1E6 / dark #2E3135
 
 export const tabStyles = {
-  // Outer bar: pinned to top, full-width, centres the inner pill
-  tabListContainer: 'absolute w-full p-4 flex-row justify-center items-center',
-
-  // Inner pill container
+  dropdownContainer: 'absolute top-0 left-0 right-0 z-10 items-center pt-4',
+  tabListContainer: 'w-full px-4 flex-row justify-center items-center',
   innerContainer:
-    'py-2 px-8 rounded-[32px] flex-row items-center grow gap-2 max-w-[800px] ' +
+    'w-full max-w-[800px] py-2 px-8 rounded-t-[32px] rounded-b-[20px] flex-row items-center gap-2 ' +
     'bg-[#F0F0F3] dark:bg-[#212225]',
-
-  // Right-side tab group
   tabsRight: 'flex-row items-center ml-auto gap-2',
-
-  // Individual tab button — focused vs idle
+  tabsGroup: 'flex-row items-center gap-2',
+  handleWrap: 'items-center -mt-1',
+  handleButton:
+    'min-w-[40px] h-7 px-2 rounded-b-[14px] flex-row items-center justify-center ' +
+    'bg-[#F0F0F3] dark:bg-[#212225]',
   tabButtonFocused: 'py-1 px-4 rounded-2xl bg-[#E0E1E6] dark:bg-[#2E3135]',
   tabButtonIdle: 'py-1 px-4 rounded-2xl bg-[#F0F0F3] dark:bg-[#212225]',
 } as const;
