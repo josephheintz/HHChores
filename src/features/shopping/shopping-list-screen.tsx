@@ -4,14 +4,28 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/theme/themed-text';
 import { ThemedView } from '@/components/theme/themed-view';
+import { DataTable } from '@/components/ui/data-table';
 import { useTheme } from '@/hooks/use-theme';
 
 import { styles } from './shopping-list.styles';
 
+interface ShoppingItem {
+  id: string;
+  name: string;
+  priority: string;
+}
+
+const initialItems: ShoppingItem[] = [
+  { id: '1', name: 'Milk', priority: '10' },
+  { id: '2', name: 'Bread', priority: '5' },
+  { id: '3', name: 'Eggs', priority: '7' },
+];
+
 export default function ShopListScreen() {
     const theme = useTheme();
-    const [items, setItems] = useState<string[]>([]);
+    const [items, setItems] = useState<ShoppingItem[]>(initialItems);
     const [draftItem, setDraftItem] = useState('');
+    const [nextId, setNextId] = useState(4); 
 
     const addItem = () => {
         const nextItem = draftItem.trim();
@@ -19,18 +33,22 @@ export default function ShopListScreen() {
             return;
         }
 
-        setItems((previousItems) => [...previousItems, nextItem]);
+        setItems((previousItems) => [
+            ...previousItems,
+            { id: nextId.toString(), name: nextItem, priority: '5' },
+        ]);
+        setNextId((prev) => prev + 1);
         setDraftItem('');
     };
 
-    const removeItem = (indexToRemove: number) => {
-        setItems((previousItems) => previousItems.filter((_, index) => index !== indexToRemove));
+    const removeItem = (itemId: string) => {
+        setItems((previousItems) => previousItems.filter((item) => item.id !== itemId));
     };
 
     return (
         <ThemedView style={styles.screen}>
             <SafeAreaView style={styles.container}>
-                <ThemedText type="subtitle">Shopping List</ThemedText>
+                <ThemedText type="subtitle" style={styles.pageTitle}>List Tab</ThemedText>
 
                 <ThemedView style={styles.inputRow}>
                     <TextInput
@@ -64,15 +82,28 @@ export default function ShopListScreen() {
                 {items.length === 0 ? (
                     <ThemedText themeColor="textSecondary">No items yet.</ThemedText>
                 ) : (
-                    <ThemedView style={styles.list}>
-                        {items.map((item, index) => (
-                            <Pressable key={`${item}-${index}`} onPress={() => removeItem(index)}>
-                                <ThemedView type="backgroundElement" style={styles.itemRow}>
-                                    <ThemedText>{item}</ThemedText>
-                                </ThemedView>
-                            </Pressable>
-                        ))}
-                    </ThemedView>
+                    <DataTable
+                        data={items}
+                        columns={[
+                            {
+                                key: 'name',
+                                label: 'Item',
+                            },
+                            {
+                                key: 'priority',
+                                label: 'Priority',
+                            },
+                        ]}
+                        title="Shopping List"
+                        keyExtractor={(item) => item.id}
+                        emptyMessage="No items yet."
+                        actions={[
+                            {
+                                label: 'Remove',
+                                onPress: (item) => removeItem(item.id),
+                            },
+                        ]}
+                    />
                 )}
             </SafeAreaView>
         </ThemedView>

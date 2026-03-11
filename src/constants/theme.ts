@@ -62,4 +62,6 @@ export const Spacing = {
 } as const;
 
 export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
+// Height of the absolute-positioned web navbar (pill + handle + top padding)
+export const TopNavInset = Platform.select({ web: 100 }) ?? 0;
 export const MaxContentWidth = 800;

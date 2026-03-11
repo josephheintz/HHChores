@@ -1,15 +1,20 @@
 import { StyleSheet } from 'react-native';
 
-import { Spacing } from '@/constants/theme';
+import { BottomTabInset, MaxContentWidth, Spacing, TopNavInset } from '@/constants/theme';
 
 export const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   container: {
     flex: 1,
-    padding: Spacing.three,
+    padding: Spacing.four,
+    paddingTop: TopNavInset + Spacing.four,
+    paddingBottom: BottomTabInset + Spacing.four,
     gap: Spacing.three,
+    maxWidth: MaxContentWidth,
   },
   inputRow: {
     flexDirection: 'row',
@@ -28,12 +33,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  list: {
-    gap: Spacing.two,
-  },
-  itemRow: {
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    borderRadius: Spacing.two,
+  pageTitle: {
+    alignSelf: 'flex-start',
   },
 });
+
