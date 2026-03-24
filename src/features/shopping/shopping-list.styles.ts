@@ -16,22 +16,20 @@ export const styles = StyleSheet.create({
     gap: Spacing.three,
     maxWidth: MaxContentWidth,
   },
-  inputRow: {
-    flexDirection: 'row',
-    gap: Spacing.two,
-  },
-  input: {
-    flex: 1,
-    borderWidth: 1,
-    borderRadius: Spacing.two,
-    paddingHorizontal: Spacing.two,
-    paddingVertical: Spacing.two,
-  },
   addButton: {
     borderRadius: Spacing.two,
     paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.two,
     alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: 'flex-start',
+  },
+  rowInput: {
+    borderWidth: 1,
+    borderRadius: Spacing.one,
+    paddingHorizontal: Spacing.one,
+    paddingVertical: Spacing.one,
+    minHeight: 28,
   },
   pageTitle: {
     alignSelf: 'flex-start',
